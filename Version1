@@ -1,0 +1,2585 @@
+# Author Shawn Muller
+# Start Date- 6/18/19
+# Python Chess Version 1
+# A chess game that takes user input to move the pieces on the board that is printed in the command window.
+# The program account's for invalid moves and decide whether a player won or a stalemate occurs.
+# The program account's for player's moving their king into check and if a player's king is in check
+# All the game objects are objects with locations
+# The game board is a 2D array
+# Number of lines ==> 2583
+# function for changing and printing game board
+def printBoard(gs,ep,cs,ns):
+    # if the game started print, initialize the game board
+    if gs == True:
+        # initialization of game board(2D array)
+        global board
+        c, r = 18, 18  # dimensions of board array
+        board = [[0 for x in range(c)] for y in range(r)]  # generation of board with zeros
+        # filling the board
+# -------------------------------------------------------------------------------------------------------
+        # horizontal lines
+        board[0][0] = '     '
+        board[0][1] = '-----'
+        board[0][2] = '-----'
+        board[0][3] = '-----'
+        board[0][4] = '-----'
+        board[0][5] = '-----'
+        board[0][6] = '-----'
+        board[0][7] = '-----'
+        board[0][8] = '-----'
+        board[0][9] = '-----'
+        board[0][10] = '-----'
+        board[0][11] = '-----'
+        board[0][12] = '-----'
+        board[0][13] = '-----'
+        board[0][14] = '-----'
+        board[0][15] = '-----'
+        board[0][16] = '-----'
+        board[0][17] = '-----'
+
+        # zeroth row
+        board[1][0] = '  0  '
+        board[1][1] = '  |  '
+        board[1][2] = '2.R.0'
+        board[1][3] = '  |  '
+        board[1][4] = '2.H.0'
+        board[1][5] = '  |  '
+        board[1][6] = '2.B.0'
+        board[1][7] = '  |  '
+        board[1][8] = '2.K.0'
+        board[1][9] = '  |  '
+        board[1][10] = '2.Q.0'
+        board[1][11] = '  |  '
+        board[1][12] = '2.B.1'
+        board[1][13] = '  |  '
+        board[1][14] = '2.H.1'
+        board[1][15] = '  |  '
+        board[1][16] = '2.R.1'
+        board[1][17] = '  |  '
+
+        # horizontal lines
+        board[2][0] = '     '
+        board[2][1] = '-----'
+        board[2][2] = '-----'
+        board[2][3] = '-----'
+        board[2][4] = '-----'
+        board[2][5] = '-----'
+        board[2][6] = '-----'
+        board[2][7] = '-----'
+        board[2][8] = '-----'
+        board[2][9] = '-----'
+        board[2][10] = '-----'
+        board[2][11] = '-----'
+        board[2][12] = '-----'
+        board[2][13] = '-----'
+        board[2][14] = '-----'
+        board[2][15] = '-----'
+        board[2][16] = '-----'
+        board[2][17] = '-----'
+
+        # first row
+        board[3][0] = '  1  '
+        board[3][1] = '  |  '
+        board[3][2] = '2.P.0'
+        board[3][3] = '  |  '
+        board[3][4] = '2.P.1'
+        board[3][5] = '  |  '
+        board[3][6] = '2.P.2'
+        board[3][7] = '  |  '
+        board[3][8] = '2.P.3'
+        board[3][9] = '  |  '
+        board[3][10] = '2.P.4'
+        board[3][11] = '  |  '
+        board[3][12] = '2.P.5'
+        board[3][13] = '  |  '
+        board[3][14] = '2.P.6'
+        board[3][15] = '  |  '
+        board[3][16] = '2.P.7'
+        board[3][17] = '  |  '
+
+        # horizontal lines
+        board[4][0] = '     '
+        board[4][1] = '-----'
+        board[4][2] = '-----'
+        board[4][3] = '-----'
+        board[4][4] = '-----'
+        board[4][5] = '-----'
+        board[4][6] = '-----'
+        board[4][7] = '-----'
+        board[4][8] = '-----'
+        board[4][9] = '-----'
+        board[4][10] = '-----'
+        board[4][11] = '-----'
+        board[4][12] = '-----'
+        board[4][13] = '-----'
+        board[4][14] = '-----'
+        board[4][15] = '-----'
+        board[4][16] = '-----'
+        board[4][17] = '-----'
+
+        # second row
+        board[5][0] = '  2  '
+        board[5][1] = '  |  '
+        board[5][2] = '     '
+        board[5][3] = '  |  '
+        board[5][4] = '     '
+        board[5][5] = '  |  '
+        board[5][6] = '     '
+        board[5][7] = '  |  '
+        board[5][8] = '     '
+        board[5][9] = '  |  '
+        board[5][10] = '     '
+        board[5][11] = '  |  '
+        board[5][12] = '     '
+        board[5][13] = '  |  '
+        board[5][14] = '     '
+        board[5][15] = '  |  '
+        board[5][16] = '     '
+        board[5][17] = '  |  '
+
+        # horizontal lines
+        board[6][0] = '     '
+        board[6][1] = '-----'
+        board[6][2] = '-----'
+        board[6][3] = '-----'
+        board[6][4] = '-----'
+        board[6][5] = '-----'
+        board[6][6] = '-----'
+        board[6][7] = '-----'
+        board[6][8] = '-----'
+        board[6][9] = '-----'
+        board[6][10] = '-----'
+        board[6][11] = '-----'
+        board[6][12] = '-----'
+        board[6][13] = '-----'
+        board[6][14] = '-----'
+        board[6][15] = '-----'
+        board[6][16] = '-----'
+        board[6][17] = '-----'
+
+        # third row
+        board[7][0] = '  3  '
+        board[7][1] = '  |  '
+        board[7][2] = '     '
+        board[7][3] = '  |  '
+        board[7][4] = '     '
+        board[7][5] = '  |  '
+        board[7][6] = '     '
+        board[7][7] = '  |  '
+        board[7][8] = '     '
+        board[7][9] = '  |  '
+        board[7][10] = '     '
+        board[7][11] = '  |  '
+        board[7][12] = '     '
+        board[7][13] = '  |  '
+        board[7][14] = '     '
+        board[7][15] = '  |  '
+        board[7][16] = '     '
+        board[7][17] = '  |  '
+
+        # horizontal lines
+        board[8][0] = '     '
+        board[8][1] = '-----'
+        board[8][2] = '-----'
+        board[8][3] = '-----'
+        board[8][4] = '-----'
+        board[8][5] = '-----'
+        board[8][6] = '-----'
+        board[8][7] = '-----'
+        board[8][8] = '-----'
+        board[8][9] = '-----'
+        board[8][10] = '-----'
+        board[8][11] = '-----'
+        board[8][12] = '-----'
+        board[8][13] = '-----'
+        board[8][14] = '-----'
+        board[8][15] = '-----'
+        board[8][16] = '-----'
+        board[8][17] = '-----'
+
+        # fourth row
+        board[9][0] = '  4  '
+        board[9][1] = '  |  '
+        board[9][2] = '     '
+        board[9][3] = '  |  '
+        board[9][4] = '     '
+        board[9][5] = '  |  '
+        board[9][6] = '     '
+        board[9][7] = '  |  '
+        board[9][8] = '     '
+        board[9][9] = '  |  '
+        board[9][10] = '     '
+        board[9][11] = '  |  '
+        board[9][12] = '     '
+        board[9][13] = '  |  '
+        board[9][14] = '     '
+        board[9][15] = '  |  '
+        board[9][16] = '     '
+        board[9][17] = '  |  '
+
+        # horizontal lines
+        board[10][0] = '     '
+        board[10][1] = '-----'
+        board[10][2] = '-----'
+        board[10][3] = '-----'
+        board[10][4] = '-----'
+        board[10][5] = '-----'
+        board[10][6] = '-----'
+        board[10][7] = '-----'
+        board[10][8] = '-----'
+        board[10][9] = '-----'
+        board[10][10] = '-----'
+        board[10][11] = '-----'
+        board[10][12] = '-----'
+        board[10][13] = '-----'
+        board[10][14] = '-----'
+        board[10][15] = '-----'
+        board[10][16] = '-----'
+        board[10][17] = '-----'
+
+        # fifth row
+        board[11][0] = '  5  '
+        board[11][1] = '  |  '
+        board[11][2] = '     '
+        board[11][3] = '  |  '
+        board[11][4] = '     '
+        board[11][5] = '  |  '
+        board[11][6] = '     '
+        board[11][7] = '  |  '
+        board[11][8] = '     '
+        board[11][9] = '  |  '
+        board[11][10] = '     '
+        board[11][11] = '  |  '
+        board[11][12] = '     '
+        board[11][13] = '  |  '
+        board[11][14] = '     '
+        board[11][15] = '  |  '
+        board[11][16] = '     '
+        board[11][17] = '  |  '
+
+        # horizontal lines
+        board[12][0] = '     '
+        board[12][1] = '-----'
+        board[12][2] = '-----'
+        board[12][3] = '-----'
+        board[12][4] = '-----'
+        board[12][5] = '-----'
+        board[12][6] = '-----'
+        board[12][7] = '-----'
+        board[12][8] = '-----'
+        board[12][9] = '-----'
+        board[12][10] = '-----'
+        board[12][11] = '-----'
+        board[12][12] = '-----'
+        board[12][13] = '-----'
+        board[12][14] = '-----'
+        board[12][15] = '-----'
+        board[12][16] = '-----'
+        board[12][17] = '-----'
+
+        # sixth row
+        board[13][0] = '  6  '
+        board[13][1] = '  |  '
+        board[13][2] = '1.P.0'
+        board[13][3] = '  |  '
+        board[13][4] = '1.P.1'
+        board[13][5] = '  |  '
+        board[13][6] = '1.P.2'
+        board[13][7] = '  |  '
+        board[13][8] = '1.P.3'
+        board[13][9] = '  |  '
+        board[13][10] = '1.P.4'
+        board[13][11] = '  |  '
+        board[13][12] = '1.P.5'
+        board[13][13] = '  |  '
+        board[13][14] = '1.P.6'
+        board[13][15] = '  |  '
+        board[13][16] = '1.P.7'
+        board[13][17] = '  |  '
+
+        # horizontal lines
+        board[14][0] = '     '
+        board[14][1] = '-----'
+        board[14][2] = '-----'
+        board[14][3] = '-----'
+        board[14][4] = '-----'
+        board[14][5] = '-----'
+        board[14][6] = '-----'
+        board[14][7] = '-----'
+        board[14][8] = '-----'
+        board[14][9] = '-----'
+        board[14][10] = '-----'
+        board[14][11] = '-----'
+        board[14][12] = '-----'
+        board[14][13] = '-----'
+        board[14][14] = '-----'
+        board[14][15] = '-----'
+        board[14][16] = '-----'
+        board[14][17] = '-----'
+
+        # seventh row
+        board[15][0] = '  7  '
+        board[15][1] = '  |  '
+        board[15][2] = '1.R.0'
+        board[15][3] = '  |  '
+        board[15][4] = '1.H.0'
+        board[15][5] = '  |  '
+        board[15][6] = '1.B.0'
+        board[15][7] = '  |  '
+        board[15][8] = '1.Q.0'
+        board[15][9] = '  |  '
+        board[15][10] = '1.K.0'
+        board[15][11] = '  |  '
+        board[15][12] = '1.B.1'
+        board[15][13] = '  |  '
+        board[15][14] = '1.H.1'
+        board[15][15] = '  |  '
+        board[15][16] = '1.R.1'
+        board[15][17] = '  |  '
+
+        # horizontal lines
+        board[16][0] = '     '
+        board[16][1] = '-----'
+        board[16][2] = '-----'
+        board[16][3] = '-----'
+        board[16][4] = '-----'
+        board[16][5] = '-----'
+        board[16][6] = '-----'
+        board[16][7] = '-----'
+        board[16][8] = '-----'
+        board[16][9] = '-----'
+        board[16][10] = '-----'
+        board[16][11] = '-----'
+        board[16][12] = '-----'
+        board[16][13] = '-----'
+        board[16][14] = '-----'
+        board[16][15] = '-----'
+        board[16][16] = '-----'
+        board[16][17] = '-----'
+
+        # horizontal label
+        board[17][0] = '     '
+        board[17][1] = '     '
+        board[17][2] = '  0  '
+        board[17][3] = '     '
+        board[17][4] = '  1  '
+        board[17][5] = '     '
+        board[17][6] = '  2  '
+        board[17][7] = '     '
+        board[17][8] = '  3  '
+        board[17][9] = '     '
+        board[17][10] = '  4  '
+        board[17][11] = '     '
+        board[17][12] = '  5  '
+        board[17][13] = '     '
+        board[17][14] = '  6  '
+        board[17][15] = '     '
+        board[17][16] = '  7  '
+        board[17][17] = '     '
+# -------------------------------------------------------------------------------------------------------
+    # if a piece is eliminated
+    elif ep == True:
+        global epc
+        epl[epc] = board[ns[0]][ns[1]]  # eliminated piece list ==> add pieces to this list when they are eliminated
+        board[ns[0]][ns[1]] = board[cs[0]][cs[1]]  # make ns equal to cs
+        board[cs[0]][cs[1]] = '     '  # make cs equal to '     '
+        ep = False
+        epc = epc + 1
+    # swap elements in spaces
+    else:
+         temp = board[cs[0]][cs[1]]  # temp variable to store cs
+         board[cs[0]][cs[1]] = board[ns[0]][ns[1]]  # set current space equal to new space
+         board[ns[0]][ns[1]] = temp   # set new space equal to current space
+
+    # print board
+    for i in range(0,18):
+        print(board[i][0],board[i][1],board[i][2],board[i][3],board[i][4],board[i][5],board[i][6],board[i][7],board[i][8],board[i][9],board[i][10],board[i][11],board[i][12],board[i][13],board[i][14],board[i][15],board[i][16],board[i][17])
+
+    print('')  # space between each board print
+    print('')  # space between each board print
+
+# Displaying graphics in pop window
+# Using user input to change graphic Display
+
+# Displays a textbox based on players turn and stores information for that players turn
+# Input textbox code
+# import tkinker library
+from tkinter import *
+import tkinter.simpledialog
+
+class MyDialog(tkinter.simpledialog.Dialog):
+
+    def body(self, master):
+        global p1Turn  # allows access to variable in main()
+        if p1Turn == True:  # execute code when it is p1's turn
+            Label(master, text="P1 Piece:").grid(row=0)    # text label 1
+            Label(master, text="P1 New location:").grid(row=1)   # text label 2
+
+            self.e1 = Entry(master)
+            self.e2 = Entry(master)
+
+            self.e1.grid(row=0, column=1)
+            self.e2.grid(row=1, column=1)
+            p1Turn = False  # Make it player 2's turn
+        else:  # execute code when it is p2's turn
+            Label(master, text="P2 Piece:").grid(row=0)  # text label 1
+            Label(master, text="P2 New location:").grid(row=1)  # text label 2
+
+            self.e1 = Entry(master)
+            self.e2 = Entry(master)
+
+            self.e1.grid(row=0, column=1)
+            self.e2.grid(row=1, column=1)
+            p1Turn = True  # Make it player 1's turn
+
+
+    def apply(self):
+        pni = self.e1.get()   # entry box 1
+        li = self.e2.get()  # entry box 2
+        global pn  # allows access to variable in main()
+        pn = pni  # set piece name equal to piece name input
+        global uins  # allows access to variable in main()
+        uins = li  # set new location input to user input new space
+
+
+# function for checking index errors for pieces
+def indexError(ns):
+    if ns[1] < 1 or ns[1] > 16:  # check horizontal boundaries
+        return False
+    elif ns[0] < 1 or ns[0] > 15:  # check vertical boundaries
+        return False
+    else:
+        return True
+
+# function for checking if the piece can do that move. If so return 'm' to indicate move and 'a' for attack.
+def validPawnMove(ns,moves,atk,psub):
+    if moves[0] == ns[0] and moves[1] == ns[1] and board[ns[0]][ns[1]] == '     ':  # Check that the space is empty and a valid move
+        return 'm'  # The piece is moving up
+    elif atk[0][0] == ns[0] and atk[0][1] == ns[1] and board[ns[0]][ns[1]] != '     ':
+        return 'a'  # The piece attacks left diagonally
+    elif atk[1][0] == ns[0] and atk[1][1] == ns[1] and board[ns[0]][ns[1]] != '     ':
+        return 'a'  # The piece attacks right diagonally
+    else:
+        return 'Error'
+
+# function for checking if the piece can move their
+def validRookMove (cs,ns):
+    temp = 2  # temp variable for adding while indexing board
+    if ns[0]-cs[0] != 0 and ns[1]-cs[1] == 0:  # The piece is moving vertically
+        if (ns[0] - cs[0])/abs(ns[0] - cs[0]) == -1:  # the piece is moving up
+            nos = abs((ns[0] - cs[0])/2)-1  # number of spaces ==> the number of spaces before it's new space
+            nos = int(nos)  # convert float to integer
+            for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                if board[(cs[0]-temp)][cs[1]] != '     ':
+                    return False
+                temp = temp + 2
+        else:  # the piece is moving down
+            nos = abs((ns[0] - cs[0]) / 2) - 1  # number of spaces ==> the number of spaces before it's new space
+            nos = int(nos)  # convert float to integer
+            for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                if board[(cs[0] + temp)][cs[1]] != '     ':
+                    return False
+                temp = temp + 2
+    elif ns[1]-cs[1] != 0 and ns[0]-cs[0] == 0:  # the piece is moving horizontally
+        if (ns[1] - cs[1])/abs(ns[1] - cs[1]) == 1:  # the piece is moving right
+            nos = abs((ns[1] - cs[1]) / 2)-1 # number of spaces ==> the number of spaces the piece is moving
+            nos = int(nos)  # convert float to integer
+            print(temp)
+            for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                if board[cs[0]][cs[1]+temp] != '     ':
+                    return False
+                else:
+                    temp = temp + 2
+        else:  # the piece is moving left
+            nos = (abs(ns[1] - cs[1]) / 2)-1 # number of spaces ==> the number of spaces the piece is moving
+            nos = int(nos)  # convert float to integer
+            print(temp)
+            print(cs[1]-temp)
+            for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                if board[cs[0]][cs[1]-temp] != '     ':
+                    return False
+                else:
+                    temp = temp + 2
+    else:  # the move is not valid
+        return False
+    return True  # the move is valid if this code is reached
+
+# function for checking if the piece can move their
+def validBishopMove (cs,ns):
+    temp = 2  # temp variable for adding while indexing board
+    if ns[0]-cs[0] != 0 and ns[1]-cs[1] != 0: # the piece must move diagonal
+        if ns[0]-cs[0] + abs(ns[0]-cs[0]) == 0:  # the piece is moving up
+            if (ns[1]-cs[1])+ abs(ns[1]-cs[1]) == 0:  # the piece is moving left
+                # print('UL')
+                nos = abs((ns[0] - cs[0]) / 2) - 1  # number of spaces ==> the number of spaces before it's new space
+                nos = int(nos)  # convert float to integer
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[(cs[0] - temp)][cs[1]-temp] != '     ':
+                        return False
+                    temp = temp + 2
+            else: # the piece is moving right
+                # print('UR')
+                nos = abs((ns[0] - cs[0]) / 2) - 1  # number of spaces ==> the number of spaces before it's new space
+                nos = int(nos)  # convert float to integer
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[(cs[0] - temp)][cs[1]+temp] != '     ':
+                        return False
+                    temp = temp + 2
+        else:  # the piece is moving down
+            if (ns[1] - cs[1]) + abs(ns[1] - cs[1]) == 0:  # the piece is moving left
+                # print('DL')
+                nos = abs((ns[0] - cs[0]) / 2) - 1  # number of spaces ==> the number of spaces before it's new space
+                nos = int(nos)  # convert float to integer
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[(cs[0] + temp)][cs[1]-temp] != '     ':
+                        return False
+                    temp = temp + 2
+            else:  # the piece is moving right
+                # print('DR')
+                nos = abs((ns[0] - cs[0]) / 2) - 1  # number of spaces ==> the number of spaces before it's new space
+                nos = int(nos)  # convert float to integer
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[(cs[0] + temp)][cs[1]+temp] != '     ':
+                        return False
+                    temp = temp + 2
+    else:  # the move is invalid
+        return False
+    return True  # the move is valid if this code is reached
+
+# function for checking if the piece can move their
+def validQueenMove (cs,ns):
+    temp = 2
+    nos = abs((ns[0] - cs[0]) / 2) - 1  # number of spaces ==> the number of spaces before it's new space
+    nos = int(nos)  # convert float to integer
+    if ns[0] - cs[0] != 0 and ns[1] - cs[1] != 0:  # the queen is moving diagonal
+        if ns[0]-cs[0] != 0 and ns[1]-cs[1] != 0:  # the queen is moving diagonal
+            # code from validBishopMove
+            if ns[0] - cs[0] + abs(ns[0] - cs[0]) == 0:  # the piece is moving up
+                if (ns[1] - cs[1]) + abs(ns[1] - cs[1]) == 0:  # the piece is moving left
+                    # print('UL')
+                    for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                        if board[(cs[0] - temp)][cs[1] - temp] != '     ':
+                            return False
+                        temp = temp + 2
+                else:  # the piece is moving right
+                    # print('UR')
+                    for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                        if board[(cs[0] - temp)][cs[1] + temp] != '     ':
+                            return False
+                        temp = temp + 2
+            else:  # the piece is moving down
+                if (ns[1] - cs[1]) + abs(ns[1] - cs[1]) == 0:  # the piece is moving left
+                    # print('DL')
+                    for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                        if board[(cs[0] + temp)][cs[1] - temp] != '     ':
+                            return False
+                        temp = temp + 2
+                else:  # the piece is moving right
+                    # print('DR')
+                    for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                        if board[(cs[0] + temp)][cs[1] + temp] != '     ':
+                            return False
+                        temp = temp + 2
+        else:  # the move is invalid
+            return False
+        return True  # the move is valid if this code is reached
+    else: # the queen is moving straight
+        # code from ValidRookMove
+        if ns[0]-cs[0] != 0 and ns[1]-cs[1] == 0:  # The piece is moving vertically
+            if (ns[0] - cs[0])/abs(ns[0] - cs[0]) == -1:  # the piece is moving up
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[(cs[0]-temp)][cs[1]] != '     ':
+                        return False
+                    temp = temp + 2
+            else:  # the piece is moving down
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[(cs[0] + temp)][cs[1]] != '     ':
+                        return False
+                    temp = temp + 2
+        elif ns[1]-cs[1] != 0 and ns[0]-cs[0] == 0:  # the piece is moving horizontally
+            if (ns[1] - cs[1])/abs(ns[1] - cs[1]) == 1:  # the piece is moving right
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[cs[0]][cs[1]+temp] != '     ':
+                        return False
+                    else:
+                        temp = temp + 2
+            else:  # the piece is moving left
+                for i in range(0, nos):  # for loop incrementing by one from 0 to number of spaces
+                    if board[cs[0]][cs[1]-temp] != '     ':
+                        return False
+                    else:
+                        temp = temp + 2
+        else:  # the move is not valid
+            return False
+        return True  # the move is valid if this code is reached
+
+
+# function for checking if the piece can move their
+def validKingMove (cs,ns,pl):
+
+    if ns[0] == cs[0] - 2 and ns[1] == cs[1] + 2 and intoCheck(ns,cs,pl) == False: # moving up right
+        return True
+    elif ns[0] == cs[0] - 2 and ns[1] == cs[1] - 2 and intoCheck(ns,cs,pl) == False: # moving up left
+        return True
+    elif ns[0] == cs[0] + 2 and ns[1] == cs[1] + 2 and intoCheck(ns,cs,pl) == False:  # moving down right
+        return True
+    elif ns[0] == cs[0] + 2 and ns[1] == cs[1] - 2 and intoCheck(ns,cs,pl) == False:  # moving down left
+        return True
+    elif ns[0] == cs[0] - 2 and ns[1] == cs[1] and intoCheck(ns,cs,pl) == False:  # moving up
+        return True
+    elif ns[0] == cs[0] + 2 and ns[1] == cs[1] and intoCheck(ns,cs,pl) == False:  # moving down
+        return True
+    elif ns[1] == cs[1] - 2 and ns[0] == cs[0] and intoCheck(ns,cs,pl) == False:  # moving left
+        return True
+    elif ns[1] == cs[1] + 2 and ns[0] == cs[0] and intoCheck(ns,cs,pl) == False:  # moving right
+        return True
+    else: # the move is invalid
+        return False
+
+
+# function for checking if a king is moving into check
+def intoCheck(ns,cs,pl):
+    if pl == '1':  # the king belongs to player 1
+        if board[ns[0]][ns[1]][0:1] == '1':  # ensure that the new space does not have a piece from player 1
+            return True
+        # check for a horse
+        if ns[0] > 3 and ns[1] > 2 and board[ns[0]-4][ns[1]-2][0:3] == '2.H':  # up2 left1
+            return True
+        if ns[0] > 1 and ns[1] > 4 and board[ns[0] - 2][ns[1] - 4][0:3] == '2.H':  # up1 left2
+            return True
+        if ns[0] > 3 and ns[1] < 16 and board[ns[0]-4][ns[1]+2][0:3] == '2.H':  # up2 right1
+            return True
+        if ns[0] > 1 and ns[1] < 14 and board[ns[0] - 2][ns[1] + 4][0:3] == '2.H': # up1 right2
+            return True
+        if ns[0] < 13 and ns[1] > 2 and board[ns[0]+4][ns[1]-2][0:3] == '2.H':  # down2 left1
+            return True
+        if ns[0] < 15 and ns[1] > 4 and board[ns[0] + 2][ns[1] - 4][0:3] == '2.H':  # down1 left2
+            return True
+        if ns[0] < 13 and ns[1] < 16 and board[ns[0]+4][ns[1]+2][0:3] == '2.H':  # down2 right1
+            return True
+        if ns[0] < 15 and ns[1] < 14 and board[ns[0] + 2][ns[1] + 4][0:3] == '2.H': # down1 right2
+            return True
+        # the king is moving vertically
+        # if ns[1]-cs[1] != 0:
+            # print('vert')
+            # checking up
+        temp = 2
+        nosb = (ns[0] - 1) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] - temp)][ns[1]] != '     ':
+                if board[ns[0] - temp][ns[1]][0:3] == '2.R':  # Rook
+                    return True
+                elif board[ns[0] - temp][ns[1]][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0] - temp][ns[1]][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking down
+        temp = 2
+        nosb = (15 - ns[0]) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] + temp)][ns[1]] != '     ':
+                if board[ns[0] + temp][ns[1]][0:3] == '2.R':  # Rook
+                    return True
+                elif board[ns[0] + temp][ns[1]][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0] + temp][ns[1]][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+    # the king is moving horizontally
+    # if ns[0] - cs[0] != 0:  # execute if the king is not moving horizontally
+        # print('horz')
+        # checking right
+        temp = 2
+        nosb = (16 - ns[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[ns[0]][ns[1] + temp] != '     ':
+                if board[ns[0]][ns[1] + temp][0:3] == '2.R':  # Rook
+                    return True
+                elif board[ns[0]][ns[1] + temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0]][ns[1] + temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking left
+        temp = 2
+        nosb = (ns[1] - 2) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[ns[0]][ns[1] - temp] != '     ':
+                if board[ns[0]][ns[1]-temp][0:3] == '2.R':  # Rook
+                    return True
+                elif board[ns[0]][ns[1] - temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0]][ns[1] - temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+    # moving diagonally positive
+    # if (ns[0]-cs[0])+(ns[1]-cs[1]) != 0:
+        # print('dp')
+        # checking up right
+        temp = 2
+        if (ns[0] - 1) < (16 - ns[1]):  # bottom border is closer
+            nosb = (ns[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (16 - ns[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] - temp)][ns[1] + temp] != '     ':
+                if board[ns[0] - temp][ns[1] + temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[ns[0] - temp][ns[1] + temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0] - temp][ns[1] + temp][0:3] == '2.P' and temp == 2:  # Pawn
+                    return True
+                elif board[ns[0] - temp][ns[1] + temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+        temp = temp + 2
+        # checking down left
+        temp = 2
+        if (15 - ns[0]) < (ns[1] - 2):  # Left border is closer
+            nosb = (15 - ns[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (ns[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] + temp)][ns[1] - temp] != '     ':
+                if board[ns[0] + temp][ns[1] - temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[ns[0] + temp][ns[1] - temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0] + temp][ns[1] - temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+    # moving diagonally negative
+    # print('dn')
+    # if (ns[0]-cs[0])-(ns[1]-cs[1]) != 0:
+        # checking down right
+        temp = 2
+        if (15 - ns[0]) < (16 - ns[1]):  # Right border is closer
+            nosb = (15 - ns[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (16 - ns[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] + temp)][ns[1] + temp] != '     ':
+                if board[ns[0] + temp][ns[1] + temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[ns[0] + temp][ns[1] + temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0] + temp][ns[1] + temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking up left
+        temp = 2
+        if (ns[0] - 1) < (ns[1] - 2):  # Left border is closer
+            nosb = (ns[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (ns[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] - temp)][ns[1] - temp] != '     ':
+                if board[ns[0] - temp][ns[1] - temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[ns[0] - temp][ns[1] - temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[ns[0] - temp][ns[1] - temp][0:3] == '2.P' and temp == 2:  # Pawn
+                    return True
+                elif board[ns[0] - temp][ns[1] - temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        return False
+    # the king belongs to player 2
+    else:
+        if board[ns[0]][ns[1]][0:1] == '2':  # ensure that the new space does not have a piece from player 1
+            return True
+        # check for a horse
+        if ns[0] > 3 and ns[1] > 2 and board[ns[0] - 4][ns[1] - 2][0:3] == '1.H':  # up2 left1
+            return True
+        if ns[0] > 1 and ns[1] > 4 and board[ns[0] - 2][ns[1] - 4][0:3] == '1.H':  # up1 left2
+            return True
+        if ns[0] > 3 and ns[1] < 16 and board[ns[0] - 4][ns[1] + 2][0:3] == '1.H':  # up2 right1
+            return True
+        if ns[0] > 1 and ns[1] < 14 and board[ns[0] - 2][ns[1] + 4][0:3] == '1.H':  # up1 right2
+            return True
+        if ns[0] < 13 and ns[1] > 2 and board[ns[0] + 4][ns[1] - 2][0:3] == '1.H':  # down2 left1
+            return True
+        if ns[0] < 15 and ns[1] > 4 and board[ns[0] + 2][ns[1] - 4][0:3] == '1.H':  # down1 left2
+            return True
+        if ns[0] < 13 and ns[1] < 16 and board[ns[0] + 4][ns[1] + 2][0:3] == '1.H':  # down2 right1
+            return True
+        if ns[0] < 15 and ns[1] < 14 and board[ns[0] + 2][ns[1] + 4][0:3] == '1.H':  # down1 right2
+            return True
+
+        # the king is moving vertically
+        # if ns[1] - cs[1] != 0:
+            # print('vert')
+            # checking up
+        temp = 2
+        nosb = (ns[0] - 1) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] - temp)][ns[1]] != '     ':
+                if board[ns[0] - temp][ns[1]][0:3] == '1.R':  # Rook
+                    return True
+                elif board[ns[0] - temp][ns[1]][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0] - temp][ns[1]][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking down
+        temp = 2
+        nosb = (15 - ns[0]) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] + temp)][ns[1]] != '     ':
+                if board[ns[0] + temp][ns[1]][0:3] == '1.R':  # Rook
+                    return True
+                elif board[ns[0] + temp][ns[1]][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0] + temp][ns[1]][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+    # the king is moving horizontally
+    # if ns[0] - cs[0] != 0:  # execute if the king is not moving horizontally
+        # print('horz')
+        # checking right
+        temp = 2
+        nosb = (16 - ns[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[ns[0]][ns[1] + temp] != '     ':
+                if board[ns[0]][ns[1] + temp][0:3] == '1.R':  # Rook
+                    return True
+                elif board[ns[0]][ns[1] + temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0]][ns[1] + temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking left
+        temp = 2
+        nosb = (ns[1] - 2) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[ns[0]][ns[1] - temp] != '     ':
+                if board[ns[0]][ns[1] - temp][0:3] == '1.R':  # Rook
+                    return True
+                elif board[ns[0]][ns[1] - temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0]][ns[1] - temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+    # moving diagonally positive
+    # if (ns[0] - cs[0]) + (ns[1] - cs[1]) != 0:
+        # checking up right
+        temp = 2
+        if (ns[0] - 1) < (16 - ns[1]):  # bottom border is closer
+            nosb = (ns[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (16 - ns[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] - temp)][ns[1] + temp] != '     ':
+                if board[ns[0] - temp][ns[1] + temp][0:3] == '1.B':  # Rook
+                    return True
+                elif board[ns[0] - temp][ns[1] + temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0] - temp][ns[1] + temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+        temp = temp + 2
+        # checking down left
+        temp = 2
+        if (15 - ns[0]) < (ns[1] - 2):  # Left border is closer
+            nosb = (15 - ns[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (ns[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] + temp)][ns[1] - temp] != '     ':
+                if board[ns[0] + temp][ns[1] - temp][0:3] == '1.B':  # Rook
+                    return True
+                elif board[ns[0] + temp][ns[1] - temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0] + temp][ns[1] - temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                elif board[ns[0] + temp][ns[1] - temp][0:3] == '1.P' and temp == 2:  # Pawn
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+    # moving diagonally negative
+    # if (ns[0] - cs[0]) - (ns[1] - cs[1]) != 0:
+        # checking down right
+        temp = 2
+        if (15 - ns[0]) < (16 - ns[1]):  # Right border is closer
+            nosb = (15 - ns[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (16 - ns[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] + temp)][ns[1] + temp] != '     ':
+                if board[ns[0] + temp][ns[1] + temp][0:3] == '1.B':  # Rook
+                    return True
+                elif board[ns[0] + temp][ns[1] + temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0] + temp][ns[1] + temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                elif board[ns[0] + temp][ns[1] + temp][0:3] == '1.P' and temp == 2:  # Pawn
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking up left
+        temp = 2
+        if (ns[0] - 1) < (ns[1] - 2):  # Left border is closer
+            nosb = (ns[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (ns[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(ns[0] - temp)][ns[1] - temp] != '     ':
+                if board[ns[0] - temp][ns[1] - temp][0:3] == '1.B':  # Bishop
+                    return True
+                elif board[ns[0] - temp][ns[1] - temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[ns[0] - temp][ns[1] - temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        return False
+
+
+# function for checking if a king is in check
+def inCheck (cs,pl):
+    if pl == '1':  # player 1
+        # check for a horse
+        if cs[0] > 3 and cs[1] > 2 and board[cs[0] - 4][cs[1] - 2][0:3] == '2.H':  # up2 left1
+            return True
+        if cs[0] > 1 and cs[1] > 4 and board[cs[0] - 2][cs[1] - 4][0:3] == '2.H':  # up1 left2
+            return True
+        if cs[0] > 3 and cs[1] < 16 and board[cs[0] - 4][cs[1] + 2][0:3] == '2.H':  # up2 right1
+            return True
+        if cs[0] > 1 and cs[1] < 14 and board[cs[0] - 2][cs[1] + 4][0:3] == '2.H':  # up1 right2
+            return True
+        if cs[0] < 13 and cs[1] > 2 and board[cs[0] + 4][cs[1] - 2][0:3] == '2.H':  # down2 left1
+            return True
+        if cs[0] < 15 and cs[1] > 4 and board[cs[0] + 2][cs[1] - 4][0:3] == '2.H':  # down1 left2
+            return True
+        if cs[0] < 13 and cs[1] < 16 and board[cs[0] + 4][cs[1] + 2][0:3] == '2.H':  # down2 right1
+            return True
+        if cs[0] < 15 and cs[1] < 14 and board[cs[0] + 2][cs[1] + 4][0:3] == '2.H':  # down1 right2
+            return True
+        # checking up
+        temp = 2
+        nosb = (cs[0] - 1) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] - temp)][cs[1]] != '     ':
+                if board[cs[0] - temp][cs[1]][0:3] == '2.R':  # Rook
+                    return True
+                elif board[cs[0] - temp][cs[1]][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0] - temp][cs[1]][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking down
+        temp = 2
+        nosb = (15 - cs[0]) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] + temp)][cs[1]] != '     ':
+                if board[cs[0] + temp][cs[1]][0:3] == '2.R':  # Rook
+                    return True
+                elif board[cs[0] + temp][cs[1]][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0] + temp][cs[1]][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking right
+        temp = 2
+        nosb = (16 - cs[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[cs[0]][cs[1] + temp] != '     ':
+                if board[cs[0]][cs[1] + temp][0:3] == '2.R':  # Rook
+                    return True
+                elif board[cs[0]][cs[1] + temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0]][cs[1] + temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking left
+        temp = 2
+        nosb = (cs[1] - 2) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[cs[0]][cs[1] - temp] != '     ':
+                if board[cs[0]][cs[1] - temp][0:3] == '2.R':  # Rook
+                    return True
+                elif board[cs[0]][cs[1] - temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0]][cs[1] - temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking up right
+        temp = 2
+        if (cs[0] - 1) < (16 - cs[1]):  # bottom border is closer
+            nosb = (cs[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (16 - cs[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] - temp)][cs[1] + temp] != '     ':
+                if board[cs[0] - temp][cs[1] + temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[cs[0] - temp][cs[1] + temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0] - temp][cs[1] + temp][0:3] == '2.P' and temp == 2:  # Pawn
+                    return True
+                elif board[cs[0] - temp][cs[1] + temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+        temp = temp + 2
+        # checking down left
+        temp = 2
+        if (15 - cs[0]) < (cs[1] - 2):  # Left border is closer
+            nosb = (15 - cs[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (cs[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] + temp)][cs[1] - temp] != '     ':
+                if board[cs[0] + temp][cs[1] - temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[cs[0] + temp][cs[1] - temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0] + temp][cs[1] - temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking down right
+        temp = 2
+        if (15 - cs[0]) < (16 - cs[1]):  # Right border is closer
+            nosb = (15 - cs[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (16 - cs[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] + temp)][cs[1] + temp] != '     ':
+                if board[cs[0] + temp][cs[1] + temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[cs[0] + temp][cs[1] + temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0] + temp][cs[1] + temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking up left
+        temp = 2
+        if (cs[0] - 1) < (cs[1] - 2):  # Left border is closer
+            nosb = (cs[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (cs[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] - temp)][cs[1] - temp] != '     ':
+                if board[cs[0] - temp][cs[1] - temp][0:3] == '2.B':  # Rook
+                    return True
+                elif board[cs[0] - temp][cs[1] - temp][0:3] == '2.Q':  # Queen
+                    return True
+                elif board[cs[0] - temp][cs[1] - temp][0:3] == '2.P' and temp == 2:  # Pawn
+                    return True
+                elif board[cs[0] - temp][cs[1] - temp][0:3] == '2.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        return False  # the piece is not in check if this line is reached
+    # player 2
+    else:
+        # check for a horse
+        if cs[0] > 3 and cs[1] > 2 and board[cs[0] - 4][cs[1] - 2][0:3] == '1.H':  # up2 left1
+            return True
+        if cs[0] > 1 and cs[1] > 4 and board[cs[0] - 2][cs[1] - 4][0:3] == '1.H':  # up1 left2
+            return True
+        if cs[0] > 3 and cs[1] < 16 and board[cs[0] - 4][cs[1] + 2][0:3] == '1.H':  # up2 right1
+            return True
+        if cs[0] > 1 and cs[1] < 14 and board[cs[0] - 2][cs[1] + 4][0:3] == '1.H':  # up1 right2
+            return True
+        if cs[0] < 13 and cs[1] > 2 and board[cs[0] + 4][cs[1] - 2][0:3] == '1.H':  # down2 left1
+            return True
+        if cs[0] < 15 and cs[1] > 4 and board[cs[0] + 2][cs[1] - 4][0:3] == '1.H':  # down1 left2
+            return True
+        if cs[0] < 13 and cs[1] < 16 and board[cs[0] + 4][cs[1] + 2][0:3] == '1.H':  # down2 right1
+            return True
+        if cs[0] < 15 and cs[1] < 14 and board[cs[0] + 2][cs[1] + 4][0:3] == '1.H':  # down1 right2
+            return True
+        # checking up
+        temp = 2
+        nosb = (cs[0] - 1) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] - temp)][cs[1]] != '     ':
+                if board[cs[0] - temp][cs[1]][0:3] == '1.R':  # Rook
+                    return True
+                elif board[cs[0] - temp][cs[1]][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0] - temp][cs[1]][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking down
+        temp = 2
+        nosb = (15 - cs[0]) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] + temp)][cs[1]] != '     ':
+                if board[cs[0] + temp][cs[1]][0:3] == '1.R':  # Rook
+                    return True
+                elif board[cs[0] + temp][cs[1]][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0] + temp][cs[1]][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking right
+        temp = 2
+        nosb = (16 - cs[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[cs[0]][cs[1] + temp] != '     ':
+                if board[cs[0]][cs[1] + temp][0:3] == '1.R':  # Rook
+                    return True
+                elif board[cs[0]][cs[1] + temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0]][cs[1] + temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking left
+        temp = 2
+        nosb = (cs[1] - 2) / 2  # nosb ==> number of spaces to border (top border)
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[cs[0]][cs[1] - temp] != '     ':
+                if board[cs[0]][cs[1] - temp][0:3] == '1.R':  # Rook
+                    return True
+                elif board[cs[0]][cs[1] - temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0]][cs[1] - temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking up right
+        temp = 2
+        if (cs[0] - 1) < (16 - cs[1]):  # bottom border is closer
+            nosb = (cs[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (16 - cs[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] - temp)][cs[1] + temp] != '     ':
+                if board[cs[0] - temp][cs[1] + temp][0:3] == '1.B':  # Rook
+                    return True
+                elif board[cs[0] - temp][cs[1] + temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0] - temp][cs[1] + temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+        temp = temp + 2
+        # checking down left
+        temp = 2
+        if (15 - cs[0]) < (cs[1] - 2):  # Left border is closer
+            nosb = (15 - cs[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (cs[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] + temp)][cs[1] - temp] != '     ':
+                if board[cs[0] + temp][cs[1] - temp][0:3] == '1.B':  # Rook
+                    return True
+                elif board[cs[0] + temp][cs[1] - temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0] + temp][cs[1] - temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                elif board[cs[0] + temp][cs[1] - temp][0:3] == '1.P' and temp == 2:  # Pawn
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking down right
+        temp = 2
+        if (15 - cs[0]) < (16 - cs[1]):  # Right border is closer
+            nosb = (15 - cs[0]) / 2  # nosb ==> number of spaces to bottom border
+        else:
+            nosb = (16 - cs[1]) / 2  # nosb ==> number of spaces to right border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] + temp)][cs[1] + temp] != '     ':
+                if board[cs[0] + temp][cs[1] + temp][0:3] == '1.B':  # Rook
+                    return True
+                elif board[cs[0] + temp][cs[1] + temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0] + temp][cs[1] + temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                elif board[cs[0] + temp][cs[1] + temp][0:3] == '1.P' and temp == 2:  # Pawn
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        # checking up left
+        temp = 2
+        if (cs[0] - 1) < (cs[1] - 2):  # Left border is closer
+            nosb = (cs[0] - 1) / 2  # nosb ==> number of spaces to top border
+        else:
+            nosb = (cs[1] - 2) / 2  # nosb ==> number of spaces to left border
+        nosb = int(nosb)  # convert float to integer
+        for i in range(0, nosb):  # for loop incrementing by one from 0 to number of spaces to border
+            if board[(cs[0] - temp)][cs[1] - temp] != '     ':
+                if board[cs[0] - temp][cs[1] - temp][0:3] == '1.B':  # Bishop
+                    return True
+                elif board[cs[0] - temp][cs[1] - temp][0:3] == '1.Q':  # Queen
+                    return True
+                elif board[cs[0] - temp][cs[1] - temp][0:3] == '1.K' and temp == 2:  # King
+                    return True
+                break  # ends the for loop
+            temp = temp + 2
+        return False  # the piece is not in check if this line is reached
+
+
+def validHorseMove (cs,ns):
+    if ns[0] == cs[0]-4 and ns[1] == cs[1]+2: # up right jump
+        return True
+    elif ns[0] == cs[0]-4 and ns[1] == cs[1]-2: # up left jump
+        return True
+    elif ns[0] == cs[0]+4 and ns[1] == cs[1]+2: # down right jump
+        return True
+    elif ns[0] == cs[0]+4 and ns[1] == cs[1]-2: # down left jump
+        return True
+    else: # the move is invalid
+        return False
+
+
+# public class for the Pawn object
+class Pawn:
+    def __init__(self, loc, moves, atk):
+        self.loc = loc  # location of pawn
+        self.moves = moves  # The way a pawn can move. Up,Down,Left,Right
+        self.atk = atk  # The way a pawn can attack. Left Diagonal, Right Diagonal
+
+class Bishop:  # public class for the Bishop object
+    def __init__(self, loc):
+        self.loc = loc  # location of Bishop
+
+class Rook:  # public class for the Rook object
+    def __init__(self, loc):
+        self.loc = loc  # location of Rook
+
+class Horse:  # public class for the Horse object
+    def __init__(self, loc):
+        self.loc = loc  # location of horse
+
+class Queen:  # public class for the Queen object
+    def __init__(self, loc):
+        self.loc = loc  # location of Queen
+
+class King:  # public class for the King object
+    def __init__(self, loc):
+        self.loc = loc  # location of King
+
+# function for running the game
+def main():
+    # initialization of variables
+    # display box for instructions on format
+    global p1Turn  # global variable for keeping track of who's turn it is
+    p1Turn = True  # set to True so player one starts
+    gameOver = False
+    printBoard(True, False, [0, 0], [0, 0])  # initialize and print board
+    count = 0
+    global pn  # piece name
+    pn = ''
+    global epl
+    epl = ['','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','']  # eliminated piece list  ==> A list for adding to the eliminated piece list
+    global epc
+    epc = 0  # eliminated piece count ==> counting variable for adding to eliminated piece list
+    epCheck = False  # variable for checking if a piece has been eliminated
+    global cs
+    cs = 0  # initialize current space
+    # stalemate = False # variable for keeping track of stalemate
+    ep = False  # variable to check if a piece is eliminated from the game
+    sc1 = 0  # stalemate count 1 ==> counting variable for player 1 for stalemate
+    sc2 = 0  # stalemate count 2 ==> counting variable for player 2 for stalemate
+    tsc1 = 0  # temp stalemate count 1 ==> temp counting variable for player 1 for stalemate
+    tsc2 = 0  # temp stalemate count 2 ==> temp counting variable for player 2 for stalemate
+    stalemate = False  # variable that checks for a stalemate
+    # initialize all piece objects
+    # Pawns
+    pTwoZero = Pawn([3, 2], [5, 2], [[5, 4], [5, 4]])  # create a pawn
+    pTwoOne = Pawn([3, 4], [5, 4], [[5, 2], [5, 6]])  # create a pawn
+    pTwoTwo = Pawn([3, 6], [5, 6], [[5, 4], [5, 8]])  # create a pawn
+    pTwoThree = Pawn([3, 8], [5, 8], [[5, 6], [5, 10]])  # create a pawn
+    pTwoFour = Pawn([3, 10], [5, 10], [[5, 8], [5, 12]])  # create a pawn
+    pTwoFive = Pawn([3, 12], [5, 12], [[5, 10], [5, 14]])  # create a pawn
+    pTwoSix = Pawn([3, 14], [5, 14], [[5, 12], [5, 16]])  # create a pawn
+    pTwoSeven = Pawn([3, 16], [5, 16], [[5, 14], [5, 14]])  # create a pawn
+    pOneZero = Pawn([13, 2], [11, 2], [[11, 4], [11, 4]])  # create a pawn
+    pOneOne = Pawn([13, 4], [11, 4], [[11, 2], [11, 6]])  # create a pawn
+    pOneTwo = Pawn([13, 6], [11, 6], [[11, 4], [11, 8]])  # create a pawn
+    pOneThree = Pawn([13, 8], [11, 8], [[11, 6], [11, 10]])  # create a pawn
+    pOneFour = Pawn([13, 10], [11, 10], [[11, 8], [11, 12]])  # create a pawn
+    pOneFive = Pawn([13, 12], [11, 12], [[11, 10], [11, 14]])  # create a pawn
+    pOneSix = Pawn([13, 14], [11, 14], [[11, 12], [11, 16]])  # create a pawn
+    pOneSeven = Pawn([13, 16], [11, 16], [[11, 14], [11, 14]])  # create a pawn
+    # Bishops
+    bOneZero = Bishop([15, 6])
+    bOneOne = Bishop([15, 12])
+    bTwoZero = Bishop([1, 6])
+    bTwoOne = Bishop([1, 12])
+    # Rooks
+    rOneZero = Rook([15, 2])
+    rOneOne = Rook([15, 16])
+    rTwoZero = Rook([1, 2])
+    rTwoOne = Rook([1, 16])
+    # Horses
+    hOneZero = Horse([15,4])
+    hOneOne = Horse([15,14])
+    hTwoZero = Horse([1,4])
+    hTwoOne = Horse([1,14])
+    # Queens
+    qOneZero = Queen([15,8])
+    qTwoZero = Queen([1,10])
+    # Kings
+    kOneZero = King([15,10])
+    kTwoZero = King([1,8])
+    # This loop will run until the game is over.
+    while gameOver == False:
+        # Takes user input and prints modified board
+        # -----------------------------------------------------
+        # display input box
+        root = Tk()
+        d = MyDialog(root)
+        # display input box
+        # convert data from user input
+        xSub = uins[0:1]  # x substring number
+        ySub = uins[2:3]  # y substring number
+        ns = [(int(xSub)*2)+1,(int(ySub)*2)+2]  # convert str to int and define a list for new space. Plus, convert to board array coordinates.
+        pn = pn.lower()  # convert piece name to lower case
+        psub = pn[0:1]  # player sub ==> substring that indicates which player's piece
+        nsub = pn[2:3]  # name sub ==> substring that indicates what type of piece
+        qsub = pn[4:5]  # quantity sub ==> substring that indicates what quantity of the piece type
+        pn = pn.upper()
+        # convert data from user input
+        # Check if the piece has been eliminated
+        for i in range(0, 32):  # for loop incrementing by one from 0 to 32
+            if epl[i] == pn:  # checks each element in list for piece name
+                epCheck = True
+        # Check for eliminated pieces
+        if epCheck == True:
+            if p1Turn == True:
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+                p1Turn = False
+            else:
+                p1Turn = True
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+            epCheck = False
+        # To stop a player from using the other player's piece
+        elif (psub == '2' and p1Turn == False) or (psub == '1' and p1Turn == True):
+            if p1Turn == True:  # To prevent a player from losing a turn from an input error
+                p1Turn = False
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+            else:
+                p1Turn = True
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+        # To stop a player from eliminating their own piece
+        elif (board[ns[0]][ns[1]][0:1] == '1' and p1Turn == False) or (board[ns[0]][ns[1]][0:1] == '2' and p1Turn == True):
+            if p1Turn == True:  # To prevent a player from losing a turn from an input error
+                p1Turn = False
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+            else:
+                p1Turn = True
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+        # verify that the piece can move and then update piece location
+        # Updating the moves of the pieces and board
+        elif psub == '1':  # if the piece belongs to player one
+            if nsub == 'p':  # if the piece is a pawn
+                if qsub == '0':  # pawn 0
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'm' or validPawnMove(ns, pOneZero.moves,pOneZero.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneZero.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                pOneZero.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves,pOneZero.atk,psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneZero.moves[0] = pOneZero.loc[0] - 2  # update up
+                                pOneZero.moves[1] = pOneZero.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneZero.atk[0][0] = pOneZero.loc[0] - 2  # Diagonal left attack
+                                pOneZero.atk[0][1] = pOneZero.loc[1] - 2  # Diagonal left attack
+                                pOneZero.atk[1][0] = pOneZero.loc[0] - 2  # Diagonal right attack
+                                pOneZero.atk[1][1] = pOneZero.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # pawn 1
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneOne.moves, pOneOne.atk, psub) == 'm' or validPawnMove(ns, pOneOne.moves,pOneOne.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneOne.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc,'1') == False:  # check if the king is in check
+                                pOneOne.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves,pOneZero.atk,psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneOne.moves[0] = pOneOne.loc[0] - 2  # update up
+                                pOneOne.moves[1] = pOneOne.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneOne.atk[0][0] = pOneOne.loc[0] - 2  # Diagonal left attack
+                                pOneOne.atk[0][1] = pOneOne.loc[1] - 2  # Diagonal left attack
+                                pOneOne.atk[1][0] = pOneOne.loc[0] - 2  # Diagonal right attack
+                                pOneOne.atk[1][1] = pOneOne.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '2': # pawn 2
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneTwo.moves, pOneTwo.atk, psub) == 'm' or validPawnMove(ns, pOneTwo.moves,pOneTwo.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneTwo.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                pOneTwo.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneTwo.moves[0] = pOneTwo.loc[0] - 2  # update up
+                                pOneTwo.moves[1] = pOneTwo.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneTwo.atk[0][0] = pOneTwo.loc[0] - 2  # Diagonal left attack
+                                pOneTwo.atk[0][1] = pOneTwo.loc[1] - 2  # Diagonal left attack
+                                pOneTwo.atk[1][0] = pOneTwo.loc[0] - 2  # Diagonal right attack
+                                pOneTwo.atk[1][1] = pOneTwo.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '3': # pawn 3
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneThree.moves, pOneThree.atk, psub) == 'm' or validPawnMove(ns, pOneThree.moves,pOneThree.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneThree.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                pOneThree.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneThree.moves[0] = pOneThree.loc[0] - 2  # update up
+                                pOneThree.moves[1] = pOneThree.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneThree.atk[0][0] = pOneThree.loc[0] - 2  # Diagonal left attack
+                                pOneThree.atk[0][1] = pOneThree.loc[1] - 2  # Diagonal left attack
+                                pOneThree.atk[1][0] = pOneThree.loc[0] - 2  # Diagonal right attack
+                                pOneThree.atk[1][1] = pOneThree.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '4': # pawn 4
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneFour.moves, pOneFour.atk, psub) == 'm' or validPawnMove(ns, pOneFour.moves,pOneFour.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneFour.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                pOneFour.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneFour.moves[0] = pOneFour.loc[0] - 2  # update up
+                                pOneFour.moves[1] = pOneFour.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneFour.atk[0][0] = pOneFour.loc[0] - 2  # Diagonal left attack
+                                pOneFour.atk[0][1] = pOneFour.loc[1] - 2  # Diagonal left attack
+                                pOneFour.atk[1][0] = pOneFour.loc[0] - 2  # Diagonal right attack
+                                pOneFour.atk[1][1] = pOneFour.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '5': # pawn 5
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneFive.moves, pOneFive.atk, psub) == 'm' or validPawnMove(ns, pOneFive.moves,pOneFive.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneFive.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                pOneFive.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneFive.moves[0] = pOneFive.loc[0] - 2  # update up
+                                pOneFive.moves[1] = pOneFive.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneFive.atk[0][0] = pOneFive.loc[0] - 2  # Diagonal left attack
+                                pOneFive.atk[0][1] = pOneFive.loc[1] - 2  # Diagonal left attack
+                                pOneFive.atk[1][0] = pOneFive.loc[0] - 2  # Diagonal right attack
+                                pOneFive.atk[1][1] = pOneFive.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '6': # pawn 6
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneSix.moves, pOneSix.atk, psub) == 'm' or validPawnMove(ns, pOneSix.moves,pOneSix.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneSix.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                pOneSix.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneSix.moves[0] = pOneSix.loc[0] - 2  # update up
+                                pOneSix.moves[1] = pOneSix.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneSix.atk[0][0] = pOneSix.loc[0] - 2  # Diagonal left attack
+                                pOneSix.atk[0][1] = pOneSix.loc[1] - 2  # Diagonal left attack
+                                pOneSix.atk[1][0] = pOneSix.loc[0] - 2  # Diagonal right attack
+                                pOneSix.atk[1][1] = pOneSix.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '7': # pawn 7
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validPawnMove(ns, pOneSeven.moves, pOneSeven.atk, psub) == 'm' or validPawnMove(ns, pOneSeven.moves,pOneSeven.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                            cs = pOneSeven.loc  # set current space equal to the old space
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                pOneSeven.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pOneSeven.moves[0] = pOneSeven.loc[0] - 2  # update up
+                                pOneSeven.moves[1] = pOneSeven.loc[1]  # update up
+                                # Pawn: update attack
+                                pOneSeven.atk[0][0] = pOneSeven.loc[0] - 2  # Diagonal left attack
+                                pOneSeven.atk[0][1] = pOneSeven.loc[1] - 2  # Diagonal left attack
+                                pOneSeven.atk[1][0] = pOneSeven.loc[0] - 2  # Diagonal right attack
+                                pOneSeven.atk[1][1] = pOneSeven.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:
+                    p1Turn = True
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'r':  # if the piece is a rook
+                if qsub == '0':  # rook 0
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validRookMove(rOneZero.loc,ns) == True:  # function for checking that the move is valid for a rook
+                            cs = rOneZero.loc
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                rOneZero.loc = ns  # update the rook's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                return True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # rook 1
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validRookMove(rOneOne.loc,ns) == True:  # function for checking that the move is valid for a rook
+                            cs = rOneOne.loc
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                rOneOne.loc = ns  # update the rook's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:  # input is invalid
+                    p1Turn = True
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'b':  # if the piece is a bishop
+                if qsub == '0':  # bishop 0
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validBishopMove(bOneZero.loc,ns) == True:  # function for checking that the move is valid for a bishop
+                            cs = bOneZero.loc
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                bOneZero.loc = ns  # update the bishop's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # bishop 1
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validBishopMove(bOneOne.loc,ns) == True:  # function for checking that the move is valid for a bishop
+                            cs = bOneOne.loc
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                bOneOne.loc = ns  # update the bishop's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:  # input is invalid
+                    p1Turn = True
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'h':  # if the piece is a horse
+                if qsub == '0':  # horse 0
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validHorseMove(hOneZero.loc,ns) == True:  # function for checking that the move is valid for a horse
+                            cs = hOneZero.loc
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                hOneZero.loc = ns  # update the horse's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # horse 1
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validHorseMove(hOneOne.loc,ns) == True:  # function for checking that the move is valid for a horse
+                            cs = hOneOne.loc
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                hOneOne.loc = ns  # update the horse's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:  # input is invalid
+                    p1Turn = True
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'q':  # if the piece is a queen
+                if qsub == '0':  # queen 0
+                    if indexError(ns) == True:  # Check that the intended move is inbounds
+                        if validQueenMove(qOneZero.loc,ns) == True:  # function for checking that the move is valid for a queen
+                            cs = qOneZero.loc
+                            if inCheck(kOneZero.loc, '1') == False:  # check if the king is in check
+                                qOneZero.loc = ns  # update the bishop's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:
+                    p1Turn = True
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'k':  # if the piece is a king
+                if qsub == '0':  # king 0
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validKingMove(kOneZero.loc,ns,'1') == True:  # function for checking that the move is valid for a king
+                            cs = kOneZero.loc
+                            if inCheck(ns, '1') == False:  # check if the king is in check
+                                kOneZero.loc = ns  # update the king's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = True
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = True
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = True
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:
+                    p1Turn = True
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            else:  # piece name is invalid
+                p1Turn = True
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+# the piece belongs to player two-----------------------------------------------------------------------------------
+        elif psub == '2':
+            if nsub == 'p':  # if the piece is a pawn
+                if qsub == '0': # pawn 0
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoZero.moves, pTwoZero.atk, psub) == 'm' or validPawnMove(ns, pTwoZero.moves,pTwoZero.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoZero.loc  # set current space to old location of the piece
+                                pTwoZero.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoZero.moves[0] = pTwoZero.loc[0] + 2  # update move down
+                                pOneZero.moves[1] = pTwoZero.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoZero.atk[0][0] = pTwoZero.loc[0] + 2  # Diagonal left attack
+                                pTwoZero.atk[0][1] = pTwoZero.loc[1] - 2  # Diagonal left attack
+                                pTwoZero.atk[1][0] = pTwoZero.loc[0] + 2  # Diagonal right attack
+                                pTwoZero.atk[1][1] = pTwoZero.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # pawn 1
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoOne.moves, pTwoOne.atk, psub) == 'm' or validPawnMove(ns, pTwoOne.moves,pTwoOne.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoOne.loc  # set current space to old location of the piece
+                                pTwoOne.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoOne.moves[0] = pTwoOne.loc[0] + 2  # update move down
+                                pOneOne.moves[1] = pTwoOne.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoOne.atk[0][0] = pTwoOne.loc[0] + 2  # Diagonal left attack
+                                pTwoOne.atk[0][1] = pTwoOne.loc[1] - 2  # Diagonal left attack
+                                pTwoOne.atk[1][0] = pTwoOne.loc[0] + 2  # Diagonal right attack
+                                pTwoOne.atk[1][1] = pTwoOne.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+
+                elif qsub == '2': # pawn 2
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoTwo.moves, pTwoTwo.atk, psub) == 'm' or validPawnMove(ns, pTwoTwo.moves,pTwoTwo.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoTwo.loc  # set current space to old location of the piece
+                                pTwoTwo.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoTwo.moves[0] = pTwoTwo.loc[0] + 2  # update move down
+                                pOneTwo.moves[1] = pTwoTwo.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoTwo.atk[0][0] = pTwoTwo.loc[0] + 2  # Diagonal left attack
+                                pTwoTwo.atk[0][1] = pTwoTwo.loc[1] - 2  # Diagonal left attack
+                                pTwoTwo.atk[1][0] = pTwoTwo.loc[0] + 2  # Diagonal right attack
+                                pTwoTwo.atk[1][1] = pTwoTwo.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '3': # pawn 3
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoThree.moves, pTwoThree.atk, psub) == 'm' or validPawnMove(ns, pTwoThree.moves,pTwoThree.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoThree.loc  # set current space to old location of the piece
+                                pTwoThree.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoThree.moves[0] = pTwoThree.loc[0] + 2  # update move down
+                                pOneThree.moves[1] = pTwoThree.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoThree.atk[0][0] = pTwoThree.loc[0] + 2  # Diagonal left attack
+                                pTwoThree.atk[0][1] = pTwoThree.loc[1] - 2  # Diagonal left attack
+                                pTwoThree.atk[1][0] = pTwoThree.loc[0] + 2  # Diagonal right attack
+                                pTwoThree.atk[1][1] = pTwoThree.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '4': # pawn 4
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoFour.moves, pTwoFour.atk, psub) == 'm' or validPawnMove(ns, pTwoFour.moves,pTwoFour.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoFour.loc  # set current space to old location of the piece
+                                pTwoFour.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoFour.moves[0] = pTwoFour.loc[0] + 2  # update move down
+                                pOneFour.moves[1] = pTwoFour.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoFour.atk[0][0] = pTwoFour.loc[0] + 2  # Diagonal left attack
+                                pTwoFour.atk[0][1] = pTwoFour.loc[1] - 2  # Diagonal left attack
+                                pTwoFour.atk[1][0] = pTwoFour.loc[0] + 2  # Diagonal right attack
+                                pTwoFour.atk[1][1] = pTwoFour.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '5': # pawn 5
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoFive.moves, pTwoFive.atk, psub) == 'm' or validPawnMove(ns, pTwoFive.moves,pTwoFive.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoFive.loc  # set current space to old location of the piece
+                                pTwoFive.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoFive.moves[0] = pTwoFive.loc[0] + 2  # update move down
+                                pOneFive.moves[1] = pTwoFive.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoFive.atk[0][0] = pTwoFive.loc[0] + 2  # Diagonal left attack
+                                pTwoFive.atk[0][1] = pTwoFive.loc[1] - 2  # Diagonal left attack
+                                pTwoFive.atk[1][0] = pTwoFive.loc[0] + 2  # Diagonal right attack
+                                pTwoFive.atk[1][1] = pTwoFive.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '6': # pawn 6
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoSix.moves, pTwoSix.atk, psub) == 'm' or validPawnMove(ns, pTwoSix.moves,pTwoSix.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoSix.loc  # set current space to old location of the piece
+                                pTwoSix.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoSix.moves[0] = pTwoSix.loc[0] + 2  # update move down
+                                pOneSix.moves[1] = pTwoSix.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoSix.atk[0][0] = pTwoSix.loc[0] + 2  # Diagonal left attack
+                                pTwoSix.atk[0][1] = pTwoSix.loc[1] - 2  # Diagonal left attack
+                                pTwoSix.atk[1][0] = pTwoSix.loc[0] + 2  # Diagonal right attack
+                                pTwoSix.atk[1][1] = pTwoSix.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '7': # pawn 7
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validPawnMove(ns, pTwoSeven.moves, pTwoSeven.atk, psub) == 'm' or validPawnMove(ns, pTwoSeven.moves,pTwoSeven.atk,psub) == 'a':  # function for checking that the move is valid for a pawn(check move/atk)
+                                cs = pTwoSeven.loc  # set current space to old location of the piece
+                                pTwoSeven.loc = ns  # update the pawn's location
+                                if validPawnMove(ns, pOneZero.moves, pOneZero.atk, psub) == 'a':
+                                    ep = True  # sets eliminate piece equal to true
+                                # Pawn: update moves  # Put conditional statements to check if move is possible
+                                pTwoSeven.moves[0] = pTwoSeven.loc[0] + 2  # update move down
+                                pOneSeven.moves[1] = pTwoSeven.loc[1]  # update move down
+                                # Pawn: update attack
+                                pTwoSeven.atk[0][0] = pTwoSeven.loc[0] + 2  # Diagonal left attack
+                                pTwoSeven.atk[0][1] = pTwoSeven.loc[1] - 2  # Diagonal left attack
+                                pTwoSeven.atk[1][0] = pTwoSeven.loc[0] + 2  # Diagonal right attack
+                                pTwoSeven.atk[1][1] = pTwoSeven.loc[1] + 2  # Diagonal right attack
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:
+                    p1Turn = False
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'r':  # if the piece is a rook
+                if qsub == '0':  # rook 0
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validRookMove(rTwoZero.loc,ns) == True:  # function for checking that the move is valid for a rook
+                                cs = rTwoZero.loc
+                                rTwoZero.loc = ns  # update the rook's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # rook 1
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validRookMove(rTwoOne.loc,ns) == True:  # function for checking that the move is valid for a rook
+                                cs = rTwoOne.loc
+                                rTwoOne.loc = ns  # update the rook's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:  # input is invalid
+                    p1Turn = False
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'b':  # if the piece is a bishop
+                if qsub == '0':  # bishop 0
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validBishopMove(bTwoZero.loc,ns) == True:  # function for checking that the move is valid for a bishop
+                                cs = bTwoZero.loc
+                                bTwoZero.loc = ns  # update the bishop's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # bishop 1
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validBishopMove(bTwoOne.loc,ns) == True:  # function for checking that the move is valid for a bishop
+                                cs = bTwoOne.loc
+                                bTwoOne.loc = ns  # update the bishop's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:  # input is invalid
+                    p1Turn = False
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'h':  # if the piece is a horse
+                if qsub == '0':  # horse 0
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validHorseMove(hTwoZero.loc,ns) == True:  # function for checking that the move is valid for a horse
+                                cs = hTwoZero.loc
+                                hTwoZero.loc = ns  # update the horse's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                elif qsub == '1':  # horse 1
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validHorseMove(hTwoOne.loc,ns) == True:  # function for checking that the move is valid for a horse
+                                cs = hTwoOne.loc
+                                hTwoOne.loc = ns  # update the bishop's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:  # input is invalid
+                    p1Turn = False
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'q':  # if the piece is a queen
+                if qsub == '0':  # queen 0
+                    if inCheck(kTwoZero.loc, '2') == False:  # check if the king is in check
+                        if indexError(ns) == True:  # Check that the intended move is
+                            if validQueenMove(qTwoZero.loc,ns) == True:  # function for checking that the move is valid for a queen
+                                cs = qTwoZero.loc
+                                qTwoZero.loc = ns  # update the bishop's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:
+                    p1Turn = False
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            elif nsub == 'k':  # if the piece is a king
+                if qsub == '0':  # king 0
+                    if indexError(ns) == True:  # Check that the intended move is
+                        if validKingMove(kTwoZero.loc,ns,'2') == True:  # function for checking that the move is valid for a king
+                            cs = kTwoZero.loc
+                            if inCheck(ns,'2') == False:  # check if the king is in check
+                                kTwoZero.loc = ns  # update the king's location
+                                if board[ns[0]][ns[1]] != '     ':  # a piece is eliminated if the new space is not blank
+                                    ep = True  # reset ep variable
+                                printBoard(False, ep, cs, ns)  # update and print game board
+                            else:
+                                p1Turn = False
+                                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                                if sc2 > 0:
+                                    sc2 = sc2 - 1
+                        else:
+                            p1Turn = False
+                            if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                                sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                            if sc2 > 0:
+                                sc2 = sc2 - 1
+                    else:
+                        p1Turn = False
+                        if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                            sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                        if sc2 > 0:
+                            sc2 = sc2 - 1
+                else:
+                    p1Turn = False
+                    if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                        sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                    if sc2 > 0:
+                        sc2 = sc2 - 1
+            else:  # piece name is invalid
+                p1Turn = False
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+
+        else:   # if the name of the piece is invalid
+            if p1Turn == True:
+                p1Turn = False
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+            else:
+                p1Turn = True
+                if sc1 > 0:  # if the player 1 counting variable is greater than zero
+                    sc1 = sc1 - 1  # To account for a user incorrectly inputting while attempting a stalemate
+                if sc2 > 0:
+                    sc2 = sc2 - 1
+        # check if player 1's king is in check mate( up, down, left, right, up right, up left, down right, down left)
+        if inCheck(kOneZero.loc, '1') == True and intoCheck([kOneZero.loc[0] - 2, kOneZero.loc[1]],kOneZero.loc, '1') == True and intoCheck([kOneZero.loc[0] + 2, kOneZero.loc[1]], kOneZero.loc, '1'):
+            if intoCheck([kOneZero.loc[0], kOneZero.loc[1] - 2], kOneZero.loc, '1') == True and intoCheck([kOneZero.loc[0], kOneZero.loc[1] + 2], kOneZero.loc, '1') == True:
+                if intoCheck([kOneZero.loc[0] - 2, kOneZero.loc[1] + 2], kOneZero.loc,'1') == True and intoCheck([kOneZero.loc[0] - 2, kOneZero.loc[1] - 2],kOneZero.loc, '1') == True:
+                    if intoCheck([kOneZero.loc[0] + 2, kOneZero.loc[1] + 2], kOneZero.loc,'1') == True and intoCheck([kOneZero.loc[0] + 2, kOneZero.loc[1] - 2],kOneZero.loc, '1') == True:
+                        gameOver = True
+                        print('P2 Wins!')
+        # check if player 2's king is in check mate ( up, down, left, right, up right, up left, down right, down left)
+        if inCheck(kTwoZero.loc, '2') == True and intoCheck([kTwoZero.loc[0] - 2, kTwoZero.loc[1]],kTwoZero.loc, '2') == True and intoCheck([kTwoZero.loc[0] + 2, kTwoZero.loc[1]], kTwoZero.loc, '2'):
+            if intoCheck([kTwoZero.loc[0], kTwoZero.loc[1] - 2], kTwoZero.loc, '2') == True and intoCheck([kTwoZero.loc[0], kTwoZero.loc[1] + 2], kTwoZero.loc, '2') == True:
+                if intoCheck([kTwoZero.loc[0] - 2, kTwoZero.loc[1] + 2], kTwoZero.loc,'2') == True and intoCheck([kTwoZero.loc[0] - 2, kTwoZero.loc[1] - 2], kTwoZero.loc, '2') == True:
+                    if intoCheck([kTwoZero.loc[0] + 2, kTwoZero.loc[1] + 2], kTwoZero.loc,'2') == True and intoCheck([kTwoZero.loc[0] + 2, kTwoZero.loc[1] - 2], kTwoZero.loc, '2') == True:
+                        gameOver = True
+                        print('P1 Wins!')
+
+        # checking if a king is only left for each player
+        for i in range(0, 32):  # for loop incrementing by one from 0 to 32
+            if epl[i][0:1] == '1':
+                tsc1 = tsc1 + 1
+            elif epl[i][0:1] == '2':
+                tsc2 = tsc2 + 1
+
+        # player 1 stalemate
+        if tsc1 == 15:
+            sc1 = sc1 + 1
+            if sc1 == 50:
+                stalemate = True
+            else:
+                tsc1 = 0
+        # player 2 stalemate
+        if tsc2 == 15:
+            sc2 = sc2 + 1
+            if sc2 == 50:
+                stalemate = True
+            else:
+                tsc2 = 0
+        # if a stalemate occurs, it's a tie
+        if stalemate == True:
+            print('Tie')
+
+
+
+
+main()
